@@ -4,7 +4,7 @@ SRC = client.cpp server.cpp
 
 all : server client
 	$(CXX) -c main.cpp
-	$(CXX) -o $(PROG) main.o server.o
+	$(CXX) -o $(PROG) main.o server.o client.o
 
 server : 
 	$(CXX) -c server.cpp

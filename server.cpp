@@ -1,4 +1,5 @@
 #include "server.hpp"
+using namespace RemoteShell;
 
 Server::Server()
 {
@@ -65,18 +66,22 @@ int Server::welcome(){
     int new_socket;
     int valread;
     size_t cid;
-    char hello[100] = "Hello from server";
+    char hello[100] = "Hello. ";
 
-    
-
-    while( (new_socket = accept(m_server_fd, (struct sockaddr *)&m_address,  (socklen_t*)&addrlen)) ) 
+    while( true ) 
     { 
-        if ( (new_socket = accept(m_server_fd, (struct sockaddr *)&m_address,  (socklen_t*)&addrlen)) <0)
+        printf("Waiting for connection...\n");
+
+        if ( (new_socket = accept(m_server_fd, (struct sockaddr *)&m_address,  (socklen_t*)&addrlen)) < 0)
         {
             perror("accept"); 
             exit(EXIT_FAILURE); 
         }
         
+        valread = read( new_socket , m_buffer, 1024); 
+        printf("Message from client : %s\n", m_buffer ); 
+        send(new_socket , hello , strlen(hello) , 0 ); 
+        printf("Hello message sent\n"); 
         valread = read( new_socket , m_buffer, 1024); 
         printf("Message from client : %s\n", m_buffer ); 
         send(new_socket , hello , strlen(hello) , 0 ); 

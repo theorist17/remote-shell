@@ -1,11 +1,7 @@
 #include "server.hpp"
 #include "client.hpp"
 
-#include <cstdio>
-#include <cstring>
-
-using namespace std;
-
+using namespace RemoteShell;
 int main(int argc, char** argv){
     if (argc < 2)
     {
@@ -16,6 +12,10 @@ int main(int argc, char** argv){
     if (strcmp(argv[1], "server")==0)
     {
         Server server;
+    }
+    else if (strcmp(argv[1], "client")==0)
+    {
+        Client client;
     }
 
   return 0;
