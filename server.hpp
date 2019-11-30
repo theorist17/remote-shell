@@ -1,11 +1,14 @@
 #ifndef SERVER
 #define SERVER
-#include <unistd.h> 
 #include <cstdio> 
 #include <cstdlib> 
 #include <cstring> 
+#include <unistd.h> 
+#include <iostream>
 #include <sys/socket.h> 
-#include <netinet/in.h> 
+#include <netinet/in.h>
+#include <pthread.h> //for threading , link with lpthread
+#include "shell.hpp"
 
 namespace RemoteShell {
 
@@ -20,6 +23,7 @@ namespace RemoteShell {
         Server(int port);
         ~Server();
         int setup();
+        static void* handler(void* sockfd);
         int welcome();
     };
 }

@@ -1,4 +1,5 @@
 #include "server.hpp"
+
 using namespace RemoteShell;
 
 Server::Server()
@@ -25,7 +26,7 @@ int Server::setup()
     int opt;
 
     // Creating socket file descriptor 
-    if ((m_server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) 
+    if ((m_server_fd = socket(PF_INET, SOCK_STREAM, 0)) == 0) 
     { 
         perror("socket failed"); 
         exit(EXIT_FAILURE); 
@@ -39,12 +40,13 @@ int Server::setup()
     } 
 
     m_address.sin_family = AF_INET; 
-    m_address.sin_addr.s_addr = INADDR_ANY; 
+    m_address.sin_addr.s_addr = INADDR_ANY; //inet_addr("127.0.0.1");
     m_address.sin_port = htons( m_port_id ); 
+    memset(m_address.sin_zero, '\0', sizeof m_address.sin_zero); //Set all bits of the padding field to 0
+
 
     // Attching socket on to the specified port
-    if (bind(m_server_fd, (struct sockaddr *)&m_address,  
-                                 sizeof(m_address))<0) 
+    if (bind(m_server_fd, (struct sockaddr *)&m_address,  sizeof(m_address))<0) 
     { 
         perror("bind failed"); 
         exit(EXIT_FAILURE); 
@@ -64,37 +66,38 @@ int Server::setup()
 int Server::welcome(){
     int addrlen = sizeof(m_address); 
     int new_socket;
-    int valread;
     size_t cid;
-    char hello[100] = "Hello. ";
+    pthread_t thread_id;
 
-    while( true ) 
+    while(true) 
     { 
-        printf("Waiting for connection...\n");
-
         if ( (new_socket = accept(m_server_fd, (struct sockaddr *)&m_address,  (socklen_t*)&addrlen)) < 0)
         {
             perror("accept"); 
             exit(EXIT_FAILURE); 
         }
-        
-        valread = read( new_socket , m_buffer, 1024); 
-        printf("Message from client : %s\n", m_buffer ); 
-        send(new_socket , hello , strlen(hello) , 0 ); 
-        printf("Hello message sent\n"); 
-        valread = read( new_socket , m_buffer, 1024); 
-        printf("Message from client : %s\n", m_buffer ); 
-        send(new_socket , hello , strlen(hello) , 0 ); 
-        printf("Hello message sent\n"); 
 
-        //cid = fork();
-        //if (!cid) {
-        //  char client_socket_buf[6];
-        //  sprintf(client_socket_buf, "%d", new_socket);
-        //  const char *p = client_socket_buf;
-        //  execl("./RemoteShell", p, NULL);
-        //}
+        if (pthread_create(&thread_id, NULL, handler, (void*) &new_socket) < 0)
+        {
+            perror("pthread_create");
+            exit(EXIT_FAILURE);
+        }
     } 
+
+    return 0;
+}
+
+void* Server::handler(void* socket_desc)
+{
+    int sock = *(int*) socket_desc;
+    Shell shell(sock);
+
+    return 0;
+};
+
+
+int main(int argc, char** argv) {
+    Server server(8080);
 
     return 0;
 }

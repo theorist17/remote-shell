@@ -12,7 +12,11 @@ Client::Client()
 
 Client::Client(char* ip, int port)
 {
+    strcpy(m_ip_id, ip);
+    m_port_id = port;
 
+    memset(m_buffer, 0, 1024);
+    connect();
 }
 
 Client::~Client()
@@ -43,23 +47,35 @@ int Client::connect()
   		return -1; 
     }
 
-    from_user();
+    hello();
 
   	return 0; 
 } 
 
-char* Client::from_user()
+char* Client::hello()
 {
     int valread;
-  	char hello[100] = "Hello from client"; 
-  	char bye[100] = "Bye from client"; 
+    char* p_buffer = m_buffer;
+    while(true) {
+        memset(m_buffer, 0, 1024);
+        scanf("%s", p_buffer);
+        send(m_sock , m_buffer, strlen(m_buffer) , 0 ); 
+        memset(m_buffer, 0, 1024);
+        valread = recv( m_sock , m_buffer, 1024, 0); 
+        printf("%s\n", m_buffer);
+        if (strcmp(m_buffer, "exit")==0)
+        {
+            break;
+        }
+            
+    }
+    return NULL;
+}
 
-    send(m_sock , hello , strlen(hello) , 0 ); 
-    printf("Hello message sent\n"); 
-    valread = recv( m_sock , m_buffer, 1024, 0); 
-    printf("%s\n", m_buffer); 
-    send(m_sock , bye, strlen(hello) , 0 ); 
-    printf("Bye message sent\n"); 
 
-
+int main(int argc, char** argv)
+{
+    char dummy[100] = "192.168.35.117";
+    Client client(dummy, 8080);
+    return 0;
 }

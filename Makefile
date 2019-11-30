@@ -1,17 +1,17 @@
 CXX = /usr/bin/g++ # compielr
-PROG = RemoteShell
-SRC = client.cpp server.cpp
+CXXFLAGS = -lpthread
 
 all : server client
-	$(CXX) -c main.cpp
-	$(CXX) -o $(PROG) main.o server.o client.o
 
-server : 
-	$(CXX) -c server.cpp
+server :
+	$(CXX) -c server.cpp shell.cpp 
+	$(CXX) -o server server.o shell.o $(CXXFLAGS)
 
 client : 
-	$(CXX) -c client.cpp
+	$(CXX) -c client.cpp 
+	$(CXX) -o client client.o
+
 
 .PHONY=clean	
 clean:
-	/bin/rm -f *.o $(PROG)
+	/bin/rm -f *.o server client shell

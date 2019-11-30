@@ -2,6 +2,7 @@
 #include "client.hpp"
 
 using namespace RemoteShell;
+
 int main(int argc, char** argv){
     if (argc < 2)
     {
@@ -17,7 +18,11 @@ int main(int argc, char** argv){
     {
         Client client;
     }
+    else if (strcmp(argv[1], "client")==0)
+    {
+        Shell shell(atoi(argv[2]));
+    }
 
-  return 0;
+    return 0;
 }
 

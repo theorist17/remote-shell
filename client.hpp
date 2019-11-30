@@ -23,7 +23,7 @@ namespace RemoteShell{
         int connect();
         int input();
         int output();
-        char* from_user();
+        char* hello();
         char* from_file();
     };
 }
