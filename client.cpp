@@ -3,7 +3,7 @@ using namespace RemoteShell;
 
 Client::Client()
 {
-    strcpy(m_ip_id, "192.168.35.117");
+    strcpy(m_ip_id, "127.0.0.1");
     m_port_id = 8080;
 
     memset(m_buffer, 0, 1024);
@@ -75,7 +75,8 @@ char* Client::hello()
 
 int main(int argc, char** argv)
 {
-    char dummy[100] = "192.168.35.117";
-    Client client(dummy, 8080);
+    //char dummy[100] = "192.168.35.117";
+    //Client client(dummy, 8080);
+    Client client;
     return 0;
 }
