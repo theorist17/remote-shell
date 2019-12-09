@@ -39,7 +39,7 @@ int Shell::run(){
         {
             char buffer[1024];
             std::string result = "";
-            FILE* pipe = popen("ls -la .", "r");
+            FILE* pipe = popen(m_incoming, "r");
             if (!pipe) throw std::runtime_error("popen() failed!");
             try {
                 result += " ";
