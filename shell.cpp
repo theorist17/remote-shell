@@ -1,10 +1,8 @@
 #include "shell.hpp"
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/wait.h>
-#include <iostream>
+//#include <unistd.h>
+//#include <fcntl.h>
+//#include <sys/wait.h>
 
-using namespace std;
 using namespace RemoteShell;
 
 Shell::Shell()
@@ -37,24 +35,16 @@ int Shell::run(){
         }
         else
         {
-            char buffer[1024];
-            std::string result = "";
-            FILE* pipe = popen(m_incoming, "r");
-            if (!pipe) throw std::runtime_error("popen() failed!");
+            std::string output;
             try {
-                result += " ";
-                while (!feof(pipe)) {
-                    if (fgets(buffer, 1024, pipe) != NULL)
-                        result += buffer;
-                }
-            } 
-            catch (...) {
-                pclose(pipe);
-                result = "Not Found";
-                throw;
+                output = exec(m_incoming);
             }
-            pclose(pipe);
-            strcpy(m_outgoing, result.c_str());
+            catch (...)
+            {
+                output = "No commands found\n";
+                perror("Exec failed");
+            }
+            strcpy(m_outgoing, output.c_str());
         }
 
         send(m_sockfd, m_outgoing, strlen(m_outgoing) , 0 ); 
@@ -65,4 +55,26 @@ int Shell::run(){
         }
     }
     return 0;
+}
+
+string Shell::exec(const char* cmd)
+{
+    char buffer[1024];
+    std::string result = "";
+    FILE* pipe = popen(cmd, "r");
+    if (!pipe) throw std::runtime_error("popen() failed!");
+    try {
+        result += " ";
+        while (!feof(pipe)) {
+            if (fgets(buffer, 1024, pipe) != NULL)
+                result += buffer;
+        }
+    } 
+    catch (...) {
+        pclose(pipe);
+        result = "Not Found";
+        throw;
+    }
+    pclose(pipe);
+    return result;
 }

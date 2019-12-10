@@ -5,6 +5,8 @@
 #include <cstring>
 #include <unistd.h> 
 #include <sys/socket.h>
+#include <iostream>
+using namespace std;
 
 namespace RemoteShell{
     class Shell{ private:
@@ -16,6 +18,7 @@ namespace RemoteShell{
         Shell(int sockfd);
         ~Shell();
         int run();
+        string exec(const char* cmd);
     };
 }
 #endif
