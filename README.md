@@ -37,6 +37,8 @@ make
 
 ## Authors
 * **Hong-In Lee** - *TCP & threading* - [theorist17](https://github.com/theorist17)
+* **Hyun-Se Lee** - *Directory & file* - [hshs0409](https://github.com/hshs0409)
+* **Ji-Ho Park** - *Directory* - [kds3318](https://github.com/kds3318)
 
 ## Acknowledgements 
 
