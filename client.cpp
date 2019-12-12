@@ -4,8 +4,12 @@ using namespace RemoteShell;
 
 Client::Client()
 {
-	strcpy(m_ip_id, "127.0.0.1");
-	m_port_id = 8080;
+    printf("IP address : ");
+    char ip[18];
+    scanf("%s", ip);
+    strcpy(m_ip_id, ip);
+    printf("Port number : ");
+    scanf("%d", &m_port_id);
 
 	connect();
 }
@@ -155,7 +159,7 @@ string Client::download(const char* filename)
             }
         }
     }
-
+    
     int bytesrecv = string(m_incoming).length();
 
     char *bufp;

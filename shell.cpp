@@ -158,6 +158,7 @@ int Shell::run()
                     string filename = string(m_incoming).substr(9);
                     int fd, bytesread, size = 1024;
                     char buf[1024];
+                    memset(buf, 0, 1024);
                     while( fd = open(filename.c_str(), O_RDONLY), fd == -1 && errno == EINTR);
                     while( bytesread = read(fd, buf, size), bytesread == -1 && errno == EINTR);
                     output = string(buf);
