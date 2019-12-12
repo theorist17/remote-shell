@@ -48,7 +48,7 @@ int Shell::run() {
 						result += buffer;
 					}
 				}
-				printf("%s", buffer);
+				//printf("%s", buffer);
 				//printf("%s\n", m_incoming);
 				if (m_incoming[0] == 'c' && m_incoming[1] == 'd') {
 					char sub[1024];
@@ -108,7 +108,7 @@ int Shell::run() {
 				{
 					if (m_incoming[1] - '0' - 1 < hist_num) {
 						strcpy(m_incoming, history[(m_incoming[1] - '0' - 1)].c_str());
-						printf("%s\n", m_incoming);
+						//printf("%s\n", m_incoming); 현재 나오는 incoming 부분
 
 						FILE* pipe2 = popen(m_incoming, "r");
 						if (!pipe2) throw std::runtime_error("popen() failed!");
