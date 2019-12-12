@@ -6,7 +6,10 @@
 #include <arpa/inet.h> 
 #include <unistd.h> 
 #include <cstring> 
-#define PORT 8080 
+#include <fcntl.h>
+#include <sys/stat.h>
+
+using namespace std;
 
 namespace RemoteShell {
 
@@ -23,8 +26,9 @@ namespace RemoteShell {
 		Client(char* ip, int port);
 		~Client();
 		int connect();
-		char* hello();
-
+		char* run();
+        string download(const char* path);
+        string upload(const char* path);
 	};
 }
 #endif
