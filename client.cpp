@@ -181,8 +181,7 @@ string Client::download(const char* filename)
 
 int main(int argc, char** argv)
 {
-	//char dummy[100] = "192.168.35.117";
-	//Client client(dummy, 8080);
-	Client client;
+	Client client("127.0.0.1", 8080);
+	//Client client;
 	return 0;
 }
