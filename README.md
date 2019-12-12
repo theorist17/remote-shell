@@ -35,6 +35,16 @@ make
 ./client
 ```
 
+### Features
+```
+cd ..
+cd ~
+download XXX (-> to your local PC where you run client executable)
+upload XXX (-> to sever PC where they run server executable)
+```
+### Demo video
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/xxOsv9KBbQU/0.jpg)](https://www.youtube.com/watch?v=xxOsv9KBbQU)
+
 ## Authors
 * **Hong-In Lee** - *TCP & threading* - [theorist17](https://github.com/theorist17)
 * **Hyun-Se Lee** - *Directory & file* - [hshs0409](https://github.com/hshs0409)
