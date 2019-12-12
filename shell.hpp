@@ -7,7 +7,7 @@
 #include <unistd.h> 
 #include <sys/socket.h>
 #include <vector>
-#include <linux/limits.h> // PATH_MAX
+#include <limits.h> // PATH_MAX
 
 namespace RemoteShell {
 	using namespace std;
