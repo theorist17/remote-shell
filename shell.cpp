@@ -179,7 +179,7 @@ int Shell::run()
                             else
                             {
                                 string ext = target.substr(ind+1);
-                                target = target.substr(0, ind).append("_").append(ext);
+                                target = target.substr(0, ind).append("_.").append(ext);
                             }
                         }
                     }

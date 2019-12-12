@@ -10,7 +10,7 @@ Client::Client()
 	connect();
 }
 
-Client::Client(char* ip, int port)
+Client::Client(const char* ip, int port)
 {
 	strcpy(m_ip_id, ip);
 	m_port_id = port;
@@ -151,7 +151,7 @@ string Client::download(const char* filename)
             else
             {
                 string ext = target.substr(ind+1);
-                target = target.substr(0, ind).append("_").append(ext);
+                target = target.substr(0, ind).append("_.").append(ext);
             }
         }
     }

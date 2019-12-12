@@ -29,7 +29,7 @@ namespace RemoteShell {
 		int m_sock;
 	public:
 		Client();
-		Client(char* ip, int port);
+		Client(const char* ip, int port);
 		~Client();
 		int connect();
 		char* run();
