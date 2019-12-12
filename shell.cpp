@@ -51,8 +51,7 @@ int Shell::run() {
 				//printf("%s", buffer);
 				//printf("%s\n", m_incoming);
 				if (m_incoming[0] == 'c' && m_incoming[1] == 'd') {
-					char sub[1024]=" ";
-					
+					char sub[1024];
 					int i = 0;
 					int index;
 
@@ -173,6 +172,8 @@ string Shell::displayHistory()
 	if (history.size() == 0) //If nothing in history than display error.
 	{
 		cout << "Error, no commands in history." << endl;
+		temp = " ";
+		return temp;
 	}
 	else //otherwise display the last ten commands used
 	{
