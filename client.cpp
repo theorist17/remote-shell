@@ -1,6 +1,6 @@
 #include "client.hpp"
 using namespace RemoteShell;
-using namespace std;
+
 
 Client::Client()
 {
@@ -20,7 +20,13 @@ Client::Client(char* ip, int port)
 
 Client::~Client()
 {
+    char bye[1024]="exit";
+    send(m_sock, bye, strlen(bye), 0);
+    char confirm[1024];
+    memset(confirm, 0, 1024);
+	recv(m_sock, confirm, 1024, 0);
 }
+
 
 int Client::connect()
 {
@@ -46,6 +52,13 @@ int Client::connect()
 		return -1;
 	}
 
+    struct sigaction act;
+    act.sa_handler = on_intr;
+    act.sa_flags = 0;
+    //if((sigemptyset(&act.sa_mask)==-1)||
+    //            (sigaction(SIGINT, &act, NULL) == -1))
+    //    perror("Failed to install SIGINT signal handler");
+
 	run();
 
 	return 0;
@@ -57,9 +70,8 @@ char* Client::run()
 	char* p_buffer = m_outgoing;
 	string str;
 	while (true) {
-		// 여기에서 사용자의 입력을 받습니다.
-		// 혹은 파일을 불러와서 문장단위로 보내면 됩니다.
-		// 1024 바이트 이상을 보내지 마세요.
+		// Read user input here.
+		// Don't send more than any sentence or file which has length of more than 1024 bytes
 		memset(m_outgoing, 0, 1024);
 		printf("RemoteShell ▶ ");
 		getline(cin, str);

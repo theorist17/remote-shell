@@ -18,6 +18,10 @@ Server::Server(int portnum)
 
 Server::~Server()
 {
+    for (int i = 0 ; i < m_threads.size(); i++)
+    {
+        pthread_kill(m_threads[i], SIGKILL);
+    }
 	printf("Closing server..\n");
 }
 
@@ -59,15 +63,16 @@ int Server::setup()
 		exit(EXIT_FAILURE);
 	}
 
-	welcome();
+	run();
+
 	return 0;
 }
 
-int Server::welcome() {
+int Server::run() {
 	int addrlen = sizeof(m_address);
 	int new_socket;
 	size_t cid;
-	pthread_t thread_id;
+    
 
 	while (true)
 	{
@@ -77,6 +82,8 @@ int Server::welcome() {
 			exit(EXIT_FAILURE);
 		}
 
+        pthread_t thread_id;
+        m_threads.push_back(thread_id);
 		if (pthread_create(&thread_id, NULL, handler, (void*)&new_socket) < 0)
 		{
 			perror("pthread_create");

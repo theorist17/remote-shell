@@ -10,6 +10,8 @@
 #include <pthread.h> //for threading , link with lpthread
 #include "shell.hpp"
 #include <string>
+#include <csignal>
+
 
 namespace RemoteShell {
 
@@ -25,7 +27,8 @@ namespace RemoteShell {
 		~Server();
 		int setup();
 		static void* handler(void* sockfd);
-		int welcome();
+		int run();
+	    vector<pthread_t> m_threads;
 	};
 }
 #endif

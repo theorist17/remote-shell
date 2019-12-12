@@ -19,6 +19,8 @@ Shell::Shell(int sockfd)
 
 Shell::~Shell()
 {
+    shutdown(m_sockfd, 0);
+    close(m_sockfd);
 }
 
 int Shell::run()

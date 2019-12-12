@@ -8,8 +8,14 @@
 #include <cstring> 
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <csignal>
 
 using namespace std;
+
+static void on_intr(int s)
+{
+    fprintf(stdout, "No Ctrl-C, type exit to quit\n");
+}
 
 namespace RemoteShell {
 
