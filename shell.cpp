@@ -51,7 +51,8 @@ int Shell::run() {
 				//printf("%s", buffer);
 				//printf("%s\n", m_incoming);
 				if (m_incoming[0] == 'c' && m_incoming[1] == 'd') {
-					char sub[1024];
+					char sub[1024]=" ";
+					
 					int i = 0;
 					int index;
 
