@@ -56,3 +56,4 @@ upload XXX (-> to sever PC where they run server executable)
 * [tcp_server.c](https://gist.github.com/oleksiiBobko/43d33b3c25c03bcc9b2b) - Simple socket server in C using threads by oleksiiBobko
 * [README-Template.md](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) - A template to make good README.md by PurpleBooth
 * [remote-shell-OS](https://github.com/ptenteromano/remote-shell-OS) - Using socket programming to have a client send command to server to execute and respond
+* [Unix_Shell_CS433](https://github.com/CodingMorry7/Unix_Shell_CS433) - This project was to create a Shell Program. To implement a history function into it as well.
